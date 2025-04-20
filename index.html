@@ -108,7 +108,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: #fff;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             text-align: center;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
@@ -129,15 +129,16 @@
         }
         
         .surprise h1 {
-            font-size: 32px;
+            font-size: 24px;
             color: #6a5acd;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .surprise p {
-            font-size: 16px;
+            font-size: 14px;
             color: #8a2be2;
+            margin: 5px 0;
         }
 
         .btn {
@@ -151,6 +152,8 @@
             margin-top: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn:hover {
@@ -210,11 +213,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <svg class="logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="45" fill="#e6e6fa" stroke="#6a5acd" stroke-width="3"/>
-                <text x="50" y="65" font-family="Arial" font-size="40" font-weight="bold" fill="#6a5acd" text-anchor="middle">SD</text>
-                <path d="M20,80 Q50,20 80,80" stroke="#9370db" stroke-width="3" fill="none"/>
-            </svg>
+            <img src="/api/placeholder/50/50" alt="Slesea Digital Logo" class="logo-img">
             Slesea Digital
         </div>
         <div style="color: #8a2be2;">Wishing You A Wonderful Easter Season</div>
@@ -225,22 +224,18 @@
             <div class="egg-top" id="eggTop"></div>
             <div class="egg-bottom" id="eggBottom"></div>
             <div class="egg-pattern" id="eggPattern"></div>
-            <div class="egg-text" id="eggText">Tap here</div>
+            <div class="egg-text" id="eggText"><strong>Tap here</strong></div>
         </div>
         <div class="surprise" id="surprise">
             <h1>Happy Easter!</h1>
-            <p>May your Easter be filled with joy, happiness, and colorful moments!</p>
+            <p>May your Easter be filled with joy,<br>happiness, and colorful moments!</p>
             <p>- From Slesea Digital -</p>
-            <button class="btn" id="specialBtn">Special Easter Gift</button>
+            <a href="https://sleseadigital.com/" class="btn" id="specialBtn" target="_blank">Visit our site</a>
         </div>
     </div>
     
     <footer>
-        <svg class="footer-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="45" fill="#e6e6fa" stroke="#6a5acd" stroke-width="3"/>
-            <text x="50" y="65" font-family="Arial" font-size="40" font-weight="bold" fill="#6a5acd" text-anchor="middle">SD</text>
-            <path d="M20,80 Q50,20 80,80" stroke="#9370db" stroke-width="3" fill="none"/>
-        </svg>
+        <img src="/api/placeholder/30/30" alt="Slesea Digital Logo" class="footer-logo">
         © 2025 Slesea Digital - Spreading Digital Joy
     </footer>
 
@@ -282,8 +277,8 @@
         let isOpen = false;
         
         eggContainer.addEventListener('click', function(e) {
-            if (e.target === specialBtn) {
-                // Don't toggle egg if button is clicked
+            // Don't toggle egg if button/link is clicked
+            if (e.target === specialBtn || e.target.closest('#specialBtn')) {
                 return;
             }
             
@@ -314,10 +309,8 @@
             }
         });
         
-        // Special button click handler
+        // Special button click handler - just for confetti now since it's a link
         specialBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent egg toggle
-            alert("🐰 Thank you for celebrating Easter with Slesea Digital! 🐣");
             createConfetti(); // Extra confetti for button click!
         });
         
