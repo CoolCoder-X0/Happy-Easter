@@ -6,13 +6,17 @@
     <title>Interactive Easter Egg</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #e6e6fa; /* Lavender background */
+            background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png'); /* Subtle pattern */
             text-align: center;
             padding: 50px;
         }
         h1 {
             color: #9370db; /* Medium purple */
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px #d8bfd8; /* Thistle shadow */
         }
         .easter-egg {
             width: 150px;
@@ -22,7 +26,12 @@
             margin: 20px auto;
             position: relative;
             cursor: pointer;
-            transition: transform 0.5s;
+            transition: transform 0.5s, box-shadow 0.5s;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        .easter-egg:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
         .easter-egg::before {
             content: 'Tap me!';
@@ -31,15 +40,23 @@
             left: 35px;
             color: white;
             font-weight: bold;
+            text-shadow: 1px 1px #000;
         }
         .message {
             display: none;
             color: #4b0082; /* Indigo */
             margin-top: 20px;
+            font-size: 1.5em;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
+    <h1>Happy Easter!</h1>
     <div class="easter-egg" onclick="openEgg()"></div>
     <div class="message" id="message">Happy Easter!</div>
 
@@ -56,3 +73,4 @@
     </script>
 </body>
 </html>
+
