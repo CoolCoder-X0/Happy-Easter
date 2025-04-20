@@ -2,38 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Happy Easter from Slesea Digital</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #E6E6FA;
+      background: linear-gradient(135deg, #E6E6FA, #D8BFD8);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
 
-    .egg {
-      width: 200px;
-      height: 280px;
-      background: radial-gradient(circle at 50% 50%, #DDA0DD, #BA55D3);
-      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    .egg-wrapper {
+      width: 220px;
+      height: 300px;
+      position: relative;
+      cursor: pointer;
+      z-index: 5;
+      animation: pulse 2s infinite;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 1.5em;
-      font-weight: bold;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease;
     }
 
-    .egg:hover {
-      transform: scale(1.05);
+    .egg-top, .egg-bottom {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background: radial-gradient(circle at 50% 50%, #DA70D6, #BA55D3);
+      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+      transition: transform 1s ease;
+      box-shadow: 0 0 20px #BA55D3;
+    }
+
+    .egg-bottom {
+      top: 50%;
+      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    }
+
+    .egg-text {
+      position: absolute;
+      font-size: 1.8em;
+      font-weight: bold;
+      color: white;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .cracked .egg-top {
+      transform: translateY(-120px) rotate(-20deg);
+    }
+
+    .cracked .egg-bottom {
+      transform: translateY(120px) rotate(20deg);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
 
     .confetti {
@@ -44,8 +76,8 @@
       left: 0;
       overflow: hidden;
       display: none;
-      background-color: rgba(255, 255, 255, 0.6);
       z-index: 10;
+      pointer-events: none;
     }
 
     .message {
@@ -53,39 +85,68 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3em;
-      color: #8B008B;
+      font-size: 3.5em;
+      color: #800080;
       font-weight: bold;
       z-index: 11;
       display: none;
+      text-shadow: 2px 2px #FFD700;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
     }
 
     .paper {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       background-color: red;
+      border-radius: 50%;
       animation: fall 3s linear infinite;
     }
 
     @keyframes fall {
       0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      color: #663399;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
-  <div class="egg" onclick="revealSurprise()">Tap Me</div>
+  <div class="egg-wrapper" onclick="revealSurprise()">
+    <div class="egg-top"></div>
+    <div class="egg-bottom"></div>
+    <span class="egg-text">Tap Me</span>
+  </div>
+
   <div class="confetti" id="confetti"></div>
-  <div class="message" id="message">Happy Easter!</div>
+  <div class="message" id="message">🌸 Happy Easter! 🌼</div>
+  <div class="footer">From your friends at <strong>Slesea Digital</strong> 💻✨</div>
+
+  <audio id="easterSound" loop>
+    <source src="https://www.soundjay.com/human/kids-cheering-01.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     function createConfetti() {
       const confetti = document.getElementById('confetti');
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 150; i++) {
         const paper = document.createElement('div');
         paper.classList.add('paper');
         paper.style.left = Math.random() * 100 + 'vw';
+        paper.style.top = Math.random() * -100 + 'px';
         paper.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
         paper.style.animationDuration = (2 + Math.random() * 3) + 's';
         confetti.appendChild(paper);
@@ -95,13 +156,21 @@
     function revealSurprise() {
       const confetti = document.getElementById('confetti');
       const message = document.getElementById('message');
-      createConfetti();
-      confetti.style.display = 'block';
-      message.style.display = 'block';
+      const audio = document.getElementById('easterSound');
+      const eggWrapper = document.querySelector('.egg-wrapper');
+
+      if (!eggWrapper.classList.contains('cracked')) {
+        createConfetti();
+        confetti.style.display = 'block';
+        message.style.display = 'block';
+        audio.play();
+        eggWrapper.classList.add('cracked');
+      }
     }
   </script>
 </body>
 </html>
+
 
 
 
