@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Easter Egg</title>
+    <title>Interactive Easter Egg Party</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e6e6fa; /* Lavender background */
-            background-image: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png'); /* Subtle pattern */
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffebcd; /* Blanched Almond background */
             text-align: center;
             padding: 50px;
+            overflow: hidden;
         }
         h1 {
-            color: #9370db; /* Medium purple */
-            font-size: 2.5em;
+            color: #ff69b4; /* Hot Pink */
+            font-size: 3em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px #d8bfd8; /* Thistle shadow */
+            text-shadow: 3px 3px #ffb6c1; /* Light Pink shadow */
         }
         .easter-egg {
             width: 150px;
             height: 200px;
-            background-color: #9370db; /* Medium purple */
+            background-color: #ff69b4; /* Hot Pink */
             border-radius: 50% 50% 45% 45%;
             margin: 20px auto;
             position: relative;
@@ -30,7 +30,7 @@
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
         .easter-egg:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
             box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
         }
         .easter-egg::before {
@@ -44,19 +44,30 @@
         }
         .message {
             display: none;
-            color: #4b0082; /* Indigo */
+            color: #ff4500; /* Orange Red */
             margin-top: 20px;
-            font-size: 1.5em;
+            font-size: 2em;
             animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff69b4;
+            animation: fall 3s infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <h1>Happy Easter!</h1>
+    <h1>Happy Easter Party!</h1>
     <div class="easter-egg" onclick="openEgg()"></div>
     <div class="message" id="message">Happy Easter!</div>
 
@@ -68,9 +79,22 @@
             setTimeout(() => {
                 egg.style.display = 'none';
                 message.style.display = 'block';
+                launchConfetti();
             }, 500);
+        }
+
+        function launchConfetti() {
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
         }
     </script>
 </body>
 </html>
+
 
