@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Easter from Slesea Digital</title>
   <style>
     body {
@@ -24,10 +24,6 @@
       position: relative;
       cursor: pointer;
       z-index: 5;
-      animation: pulse 2s infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     .egg-top, .egg-bottom {
@@ -35,23 +31,43 @@
       width: 100%;
       height: 50%;
       background: radial-gradient(circle at 50% 50%, #DA70D6, #BA55D3);
-      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-      transition: transform 1s ease;
+      border-radius: 50% / 60%;
+      left: 0;
+      transition: transform 0.8s ease;
       box-shadow: 0 0 20px #BA55D3;
     }
 
+    .egg-top {
+      top: 0;
+      border-bottom: 2px dashed white;
+      z-index: 2;
+    }
+
     .egg-bottom {
-      top: 50%;
-      border-radius: 0 0 50% 50% / 0 0 100% 100%;
+      bottom: 0;
+      border-top: 2px dashed white;
+      z-index: 1;
+    }
+
+    .logo {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: auto;
+      z-index: 3;
     }
 
     .egg-text {
       position: absolute;
-      font-size: 1.8em;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.4em;
       font-weight: bold;
       color: white;
-      z-index: 2;
-      pointer-events: none;
+      z-index: 4;
     }
 
     .cracked .egg-top {
@@ -60,12 +76,6 @@
 
     .cracked .egg-bottom {
       transform: translateY(120px) rotate(20deg);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
     }
 
     .confetti {
@@ -124,10 +134,11 @@
   </style>
 </head>
 <body>
-  <div class="egg-wrapper" onclick="revealSurprise()">
+  <div class="egg-wrapper" onclick="revealSurprise()" id="eggWrapper">
     <div class="egg-top"></div>
     <div class="egg-bottom"></div>
-    <span class="egg-text">Tap Me</span>
+    <img src="slesea-logo.png" alt="Slesea Digital Logo" class="logo" />
+    <div class="egg-text">Tap Me</div>
   </div>
 
   <div class="confetti" id="confetti"></div>
@@ -156,20 +167,18 @@
     function revealSurprise() {
       const confetti = document.getElementById('confetti');
       const message = document.getElementById('message');
+      const eggWrapper = document.getElementById('eggWrapper');
       const audio = document.getElementById('easterSound');
-      const eggWrapper = document.querySelector('.egg-wrapper');
-
-      if (!eggWrapper.classList.contains('cracked')) {
-        createConfetti();
-        confetti.style.display = 'block';
-        message.style.display = 'block';
-        audio.play();
-        eggWrapper.classList.add('cracked');
-      }
+      createConfetti();
+      confetti.style.display = 'block';
+      message.style.display = 'block';
+      eggWrapper.classList.add('cracked');
+      audio.play();
     }
   </script>
 </body>
 </html>
+
 
 
 
