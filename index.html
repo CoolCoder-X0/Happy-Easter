@@ -3,44 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Easter from Slesea Digital</title>
+    <title>Interactive Easter Egg</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #e6e6fa; /* Lavender background */
             text-align: center;
             padding: 50px;
         }
         h1 {
-            color: #ff6f61;
-        }
-        p {
-            color: #333;
+            color: #9370db; /* Medium purple */
         }
         .easter-egg {
             width: 150px;
             height: 200px;
-            background-color: #ff6f61;
+            background-color: #9370db; /* Medium purple */
             border-radius: 50% 50% 45% 45%;
             margin: 20px auto;
             position: relative;
+            cursor: pointer;
+            transition: transform 0.5s;
         }
         .easter-egg::before {
-            content: '';
+            content: 'Tap me!';
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 110px;
-            height: 160px;
-            background-color: #fff;
-            border-radius: 50%;
+            top: 80px;
+            left: 35px;
+            color: white;
+            font-weight: bold;
+        }
+        .message {
+            display: none;
+            color: #4b0082; /* Indigo */
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Happy Easter!</h1>
-    <div class="easter-egg"></div>
-    <p>Wishing you a joyful Easter filled with love and happiness.</p>
-    <p>From all of us at Slesea Digital</p>
+    <div class="easter-egg" onclick="openEgg()"></div>
+    <div class="message" id="message">Happy Easter!</div>
+
+    <script>
+        function openEgg() {
+            const egg = document.querySelector('.easter-egg');
+            const message = document.getElementById('message');
+            egg.style.transform = 'scaleY(0.1)';
+            setTimeout(() => {
+                egg.style.display = 'none';
+                message.style.display = 'block';
+            }, 500);
+        }
+    </script>
 </body>
 </html>
